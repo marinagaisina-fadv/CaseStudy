@@ -7,30 +7,35 @@
         <h2 class="display-4 text-darkblue text-center">New users registration</h2>
         <article class="m-auto col col-xl-7 col-md-10 shadow-lg rounded15px p-5 mt-4">
             <form method="GET" action="/case/registerSubmit" name="register-form" class="row">
-                <input type="text" class="form-control" name="email" value="${formBeanKey.email}" placeholder="Enter your email in format abc@abc.com" aria-describedby="validationEmailRegister">
-                <div id="validationEmailRegister" class="invalid-feedback">
-                    Please enter a valid email address.
+                <input type="text" class="form-control" name="email" value="${formBeanKey.email}" placeholder="Enter your email in format abc@abc.com">
+                <div class="text-danger">
+                    <c:if test="${formBeanKey.map.containsKey('email')}">
+                        Please enter a valid email address. Check the details below. You&nbspentered: "${formBeanKey.map.get('email').getRejectedValue()}"
+                    </c:if>
                 </div>
-                <input type="text" class="mt-3 form-control" name="firstName" value="${formBeanKey.firstName}" placeholder="Enter your first name" aria-describedby="validationFirstName">
-                <div id="validationFirstName" class="invalid-feedback">
-                    Please enter a valid first name.
+                <input type="text" class="mt-3 form-control" name="firstName" value="${formBeanKey.firstName}" placeholder="Enter your first name">
+                <div class="text-danger">
+                    <c:if test="${formBeanKey.map.containsKey('firstName')}">
+                        Please enter a valid first name. Check the details below.
+                    </c:if>
                 </div>
-                <input type="text" class="mt-3 form-control" name="lastName" value="${formBeanKey.lastName}" placeholder="Enter your last name" aria-describedby="validationLastName">
-                <div id="validationLastName" class="invalid-feedback">
-                    Please enter a valid last name.
+                <input type="text" class="mt-3 form-control" name="lastName" value="${formBeanKey.lastName}" placeholder="Enter your last name">
+                <div class="text-danger">
+                    <c:if test="${formBeanKey.map.containsKey('lastName')}">
+                        Please enter a valid last name. Check the details below.
+                    </c:if>
                 </div>
                 <input type="password" class="mt-3 form-control" name="password" value="${formBeanKey.password}" placeholder="Enter your password" aria-describedby="validationPassRegister">
-                <div id="validationPassRegister" class="invalid-feedback">
-                    Password doesn't match the confirmed password.
+                <div class="text-danger">
+                    <c:if test="${formBeanKey.map.containsKey('password')}">
+                        Please check password and/or confirmed password fields. Check the details below. You&nbspentered: "${formBeanKey.map.get('password').getRejectedValue()}"
+                    </c:if>
                 </div>
-                <input type="password" class="mt-3 form-control" name="confirmPassword" value="${formBeanKey.confirmPassword}" placeholder="Confirm your password" aria-describedby="validationPassRegisterConfirm">
-                <div id="validationPassRegisterConfirm" class="invalid-feedback">
-                    Password doesn't match the confirmed password.
-                </div>
+                <input type="password" class="mt-3 form-control" name="confirmPassword" value="${formBeanKey.confirmPassword}" placeholder="Confirm your password">
                 <button class="mt-3 btn btn-dark btn-lg btn-block" type="submit">Register</button>
                 <div class="mt-3">
                     <c:forEach items="${formBeanKey.errorMessages}" var="message">
-                        <span class="text-danger">${message}</span><br>
+                        <span class="text-secondary"><i class="fas fa-circle me-2"></i>${message}</span><br>
                     </c:forEach>
                 </div>
             </form>

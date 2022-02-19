@@ -9,11 +9,12 @@ import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Getter
 @Setter
@@ -42,13 +43,16 @@ public class RegisterFormBean {
     private String username;
 */
     @Length(min = 7, max = 100, message = "Invalid password length. Must be between 7 and 100.")
-    @ValidatePass(message = "Invalid password format. Password must contain at least one digit, uppercase letter, lowercase letter and special symbol.")
+    @ValidatePass(message = "Invalid password format. Password must contain at least one digit, uppercase letter, lowercase letter and special symbol." +
+            "<br>Special symbols: * . ! @ # $ % ^ & ( ) { } [ ] : \" ; ' < > , ? / ~ ` _ + - = |")
     private String password;
     private String confirmPassword;
 
     // this list is populated by the controller with all error messages
-    // in the binding result.
-    private List<String> errorMessages = new ArrayList<>();
+    // in the binding result."
+    private List<String> errorMessages = new LinkedList<>();
+
+    private Map<String, FieldError> map = new HashMap<>();
 
     @Override
     public String toString() {

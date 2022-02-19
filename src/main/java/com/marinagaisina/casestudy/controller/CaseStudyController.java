@@ -57,13 +57,15 @@ public class CaseStudyController {
         ModelAndView response = new ModelAndView();
 
         System.out.println(form);
+        //form.getMap().put("email","");
         if (errors.hasErrors()) {
             for ( FieldError error : errors.getFieldErrors() ) {
                 // add the error message to the errorMessages list in the form bean
                 form.getErrorMessages().add(error.getDefaultMessage());
+                form.getMap().put(error.getField(), error);
+                //System.out.println(form.getMap().get("firstName").getRejectedValue());
                 System.out.println("error field = " + error.getField() + " message = " + error.getDefaultMessage());
             }
-
         }
         response.addObject("formBeanKey", form);
         response.setViewName("casestudy-index/register");
