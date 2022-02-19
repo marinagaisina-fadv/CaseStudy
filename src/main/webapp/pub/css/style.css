@@ -1,0 +1,53 @@
+/*  Breakpoint	Class infix	Dimensions
+    X-Small	    None	    <576px
+    Small	    sm	        ≥576px
+    Medium	    md	        ≥768px
+    Large	    lg	        ≥992px
+    Extra       large	    xl	≥1200px
+    Extra       extra large	xxl	≥1400px
+*/
+
+main {
+    margin-top: 135px;
+}
+
+.navbar-brand {
+    height: 70px;
+    width: 130px;
+    /*height: fit-content;*/
+    /*width: fit-content;*/
+}
+.bg-lightblue {
+    background-color: #a0b5ba;
+}
+
+article {
+    background-color: #ffffff;
+}
+
+.text-darkblue {
+    color: #045457;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.rounded15px {
+    border-radius: 15px !important;
+    /*border: 5px solid lightblue !important;*/
+}
+footer {
+    height: 40px;
+    /*width: 100%;*/
+}
+
+.marginForFooter {
+    margin-bottom: 60px;
+}
+
+@media screen and (max-width: 575px){
+    main {
+        margin-top: 275px;
+    }
+}
