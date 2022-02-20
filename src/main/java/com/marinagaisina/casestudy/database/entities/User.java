@@ -38,6 +38,9 @@ public class User {
     @Column(name = "phone")
     private String phone;
 
+    @Column(name= "default_location_id")
+    private Integer defaultLocationId;
+
     @Override
     public String toString() {
         return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);

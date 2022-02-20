@@ -32,7 +32,7 @@
             <nav class="navbar navbar-expand-sm navbar-dark p-0">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#">All items</a>
+                        <a class="nav-link" href="/case/allitems">All items</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/case/usersupport">User support</a>
@@ -43,6 +43,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link disabled" href="#">Shipments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/case/userList">Admin</a>
                     </li>
                     <li class="nav-item dropend">
                         <a class="nav-link dropdown-toggle disabled" type="button" data-bs-toggle="dropdown" aria-expanded="false">Reports</a>

@@ -3,6 +3,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 //import com.marinagaisina.casestudy.database.dao.UserDAO;
+import com.marinagaisina.casestudy.database.dao.UserDAO;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,8 +14,8 @@ public class EmailUniqueImpl implements ConstraintValidator<EmailUnique, String>
 
     public static final Logger LOG = LoggerFactory.getLogger(EmailUniqueImpl.class);
 
-//    @Autowired
-//    private UserDAO userDao;
+    @Autowired
+    private UserDAO userDao;
 
     @Override
     public void initialize(EmailUnique constraintAnnotation) {
@@ -34,11 +35,13 @@ public class EmailUniqueImpl implements ConstraintValidator<EmailUnique, String>
             return true;
         }
 
-        // I will do a check with DB later:
+        // Checking with DB:
+        boolean passes = true;
+        if (userDao.findByEmail(value) != null) {
+            passes = false;
+        }
 
-        boolean passes = ! StringUtils.equals(value, "a@b.com");
-
-        return ( passes );
+        return passes;
     }
 
 }

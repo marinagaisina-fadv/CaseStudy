@@ -4,8 +4,8 @@
 
 <main>
     <div class="marginForFooter container text-center">
-        <h2 class="display-7 text-darkblue">Welcome, <span class="username text-bold">guest</span>!</h2>
-        <p class="fs-5 text-darkblue w-75 m-auto">This inventory tracking web application for a logistics company implements basic CRUD functionality with additional advanced functions that mentioned below.</p>
+        <h2 class="display-7 text-darkblue">Welcome, <span class="text-bold">${username}</span>!</h2>
+        <p class="fs-5 text-darkblue w-75 m-auto">This inventory tracking web application for a logistics company implements basic CRUD functionality with additional advanced functions.</p>
         <p class="fs-5 text-darkblue w-75 m-auto text-center">Please <a href="#" onclick="formOpenClose('login-article')">Login</a> or <a href="/case/register">Register</a></p>
         <div class="row justify-content-center">
             <article id="login-article" class="d-none col col-lg-5 col-md-7 col-sm-10 shadow-lg rounded15px p-5 mt-3 text-start">

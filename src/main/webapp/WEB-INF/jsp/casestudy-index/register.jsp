@@ -10,7 +10,7 @@
                 <input type="text" class="form-control" name="email" value="${formBeanKey.email}" placeholder="Enter your email in format abc@abc.com">
                 <div class="text-danger">
                     <c:if test="${formBeanKey.map.containsKey('email')}">
-                        Please enter a valid email address. Check the details below. You&nbspentered:&nbsp"${formBeanKey.map.get('email').getRejectedValue()}"
+                        Please enter a valid email address. Check the details below.
                     </c:if>
                 </div>
                 <input type="text" class="mt-3 form-control" name="firstName" value="${formBeanKey.firstName}" placeholder="Enter your first name">
@@ -33,19 +33,26 @@
                 </div>
                 <input type="password" class="mt-3 form-control" name="confirmPassword" value="${formBeanKey.confirmPassword}" placeholder="Confirm your password">
                 <div class="d-flex p-0 flex-column">
-                    <input type="text" class="mt-3 form-control" name="username" value="${formBeanKey.username}" placeholder="Username" readonly>
+                    <input type="text" class="mt-3 form-control" name="username" placeholder="Username" readonly>
+<%--                    value="${formBeanKey.username}"--%>
                     <div class="text-danger">
                         <c:if test="${formBeanKey.map.containsKey('username')}">
                             Please, generate your username.
+                        </c:if>
+                    </div>
+                    <input type="text" class="mt-3 form-control" name="phone" value="${formBeanKey.phone}" placeholder="Enter your cell-phone number">
+                    <div class="text-danger">
+                        <c:if test="${formBeanKey.map.containsKey('phone')}">
+                            Please enter a valid cell-phone number Check the details below.
                         </c:if>
                     </div>
                     <button class="btn bg-info bg-gradient btn-lg btn-block" type="button" onclick="generateUsername()">Click for generate your username</button>
                 </div>
                 <button class="mt-3 btn btn-dark btn-lg btn-block" type="submit">Register</button>
 <%--                <button class="w-50 m-auto mt-3 btn btn-secondary btn-lg" type="reset">Reset form values to default</button>--%>
-                <div class="mt-3">
-                    <c:forEach items="${formBeanKey.errorMessages}" var="message">
-                        <span class="text-secondary"><i class="fas fa-circle me-2"></i>${message}</span><br>
+                <div class="mt-3 text-secondary">
+                    <c:forEach items="${formBeanKey.map.keySet()}" var="key">
+                        <i class="fas fa-circle me-2"></i>Error in '${key}'. ${formBeanKey.getMap().get(key).getDefaultMessage()}<br>
                     </c:forEach>
                 </div>
             </form>
