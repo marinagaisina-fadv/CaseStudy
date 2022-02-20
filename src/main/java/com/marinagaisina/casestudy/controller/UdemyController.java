@@ -1,5 +1,6 @@
 package com.marinagaisina.casestudy.controller;
 
+import com.marinagaisina.casestudy.beans.Student;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -9,6 +10,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -34,6 +36,23 @@ public class UdemyController {
         if (isItemNotEmpty && isItemNotDuplicate) {
             toDoListObject.add(item.trim());
         }
+
+        Student student1 = new Student();
+        student1.setFirstName("John");
+        student1.setLastName("Doe");
+        student1.setGoldCustomer(false);
+        Student student2 = new Student();
+        student2.setFirstName("Maxwell");
+        student2.setLastName("Johnson");
+        student2.setGoldCustomer(false);
+        Student student3 = new Student();
+        student3.setFirstName("Mary");
+        student3.setLastName("Public");
+        student3.setGoldCustomer(true);
+        List<Student> studentsList = new ArrayList<>();
+        studentsList.addAll(Arrays.asList(student1, student2, student3));
+
+        response.addObject("studentsList", studentsList);
 
         return response;
     }

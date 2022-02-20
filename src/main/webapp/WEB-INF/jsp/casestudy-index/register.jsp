@@ -5,12 +5,12 @@
 <main>
     <div class="marginForFooter container">
         <h2 class="display-4 text-darkblue text-center">New users registration</h2>
-        <article class="m-auto col col-xl-7 col-md-10 shadow-lg rounded15px p-5 mt-4">
+        <article id="article-register" class="m-auto col col-xl-7 col-md-10 shadow-lg rounded15px p-5 mt-4">
             <form method="GET" action="/case/registerSubmit" name="register-form" class="row">
                 <input type="text" class="form-control" name="email" value="${formBeanKey.email}" placeholder="Enter your email in format abc@abc.com">
                 <div class="text-danger">
                     <c:if test="${formBeanKey.map.containsKey('email')}">
-                        Please enter a valid email address. Check the details below. You&nbspentered: "${formBeanKey.map.get('email').getRejectedValue()}"
+                        Please enter a valid email address. Check the details below. You&nbspentered:&nbsp"${formBeanKey.map.get('email').getRejectedValue()}"
                     </c:if>
                 </div>
                 <input type="text" class="mt-3 form-control" name="firstName" value="${formBeanKey.firstName}" placeholder="Enter your first name">
@@ -28,11 +28,21 @@
                 <input type="password" class="mt-3 form-control" name="password" value="${formBeanKey.password}" placeholder="Enter your password" aria-describedby="validationPassRegister">
                 <div class="text-danger">
                     <c:if test="${formBeanKey.map.containsKey('password')}">
-                        Please check password and/or confirmed password fields. Check the details below. You&nbspentered: "${formBeanKey.map.get('password').getRejectedValue()}"
+                        Please check password and/or confirmed password fields. Check the details below. You&nbspentered:&nbsp"${formBeanKey.map.get('password').getRejectedValue()}"
                     </c:if>
                 </div>
                 <input type="password" class="mt-3 form-control" name="confirmPassword" value="${formBeanKey.confirmPassword}" placeholder="Confirm your password">
+                <div class="d-flex p-0 flex-column">
+                    <input type="text" class="mt-3 form-control" name="username" value="${formBeanKey.username}" placeholder="Username" readonly>
+                    <div class="text-danger">
+                        <c:if test="${formBeanKey.map.containsKey('username')}">
+                            Please, generate your username.
+                        </c:if>
+                    </div>
+                    <button class="btn bg-info bg-gradient btn-lg btn-block" type="button" onclick="generateUsername()">Click for generate your username</button>
+                </div>
                 <button class="mt-3 btn btn-dark btn-lg btn-block" type="submit">Register</button>
+<%--                <button class="w-50 m-auto mt-3 btn btn-secondary btn-lg" type="reset">Reset form values to default</button>--%>
                 <div class="mt-3">
                     <c:forEach items="${formBeanKey.errorMessages}" var="message">
                         <span class="text-secondary"><i class="fas fa-circle me-2"></i>${message}</span><br>

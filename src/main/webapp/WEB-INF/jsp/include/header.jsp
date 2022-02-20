@@ -28,7 +28,7 @@
     <div class="container d-flex justify-content-center">
         <a class="navbar-brand m-0 text-center" style="height: fit-content" href="/case"><img src="../../../pub/img/logo.gif" style="width: 60%" alt="logo.gif"></a>
         <div>
-            <h1 class="text-white display-6 m-0">Inventory Management Application</h1>
+            <h1 class="text-white display-6 m-0">Inventory Management System</h1>
             <nav class="navbar navbar-expand-sm navbar-dark p-0">
                 <ul class="navbar-nav">
                     <li class="nav-item">

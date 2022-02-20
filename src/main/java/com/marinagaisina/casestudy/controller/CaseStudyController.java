@@ -55,9 +55,10 @@ public class CaseStudyController {
     @RequestMapping(value = "/registerSubmit", method = RequestMethod.GET)
     public ModelAndView registerSubmit(@Valid RegisterFormBean form, BindingResult errors) throws Exception {
         ModelAndView response = new ModelAndView();
+        response.addObject("formBeanKey", form);
 
         System.out.println(form);
-        //form.getMap().put("email","");
+
         if (errors.hasErrors()) {
             for ( FieldError error : errors.getFieldErrors() ) {
                 // add the error message to the errorMessages list in the form bean
@@ -66,11 +67,11 @@ public class CaseStudyController {
                 //System.out.println(form.getMap().get("firstName").getRejectedValue());
                 System.out.println("error field = " + error.getField() + " message = " + error.getDefaultMessage());
             }
+
+            response.setViewName("casestudy-index/register");
         }
-        response.addObject("formBeanKey", form);
-        response.setViewName("casestudy-index/register");
-        /*else {
-            // there are no errors on the form submission lets redirect to the login page
+        else {
+            /*// there are no errors on the form submission lets redirect to the login page
             // right here that you would save the new user registration to the database
             // however we will get to this later in the week when spring JPA
             User user = new User();
@@ -81,13 +82,21 @@ public class CaseStudyController {
             user.setPassword(form.getPassword());
             user.setUsername(form.getUsername());
 
-            userDao.save(user);
+            userDao.save(user);*/
 
-            response.setViewName("redirect:/login");
-        }*/
+            response.setViewName("casestudy-index/registerCreate");
+        }
 
         return response;
     }
+
+//    @RequestMapping(value = "/registerCreate", method = RequestMethod.GET)
+//    public ModelAndView registerCreate(RegisterFormBean form, HttpServletRequest request) throws Exception {
+//        ModelAndView response = new ModelAndView();
+//        response.addObject("formBeanKey", form);
+//        response.setViewName("redirect");
+//        return response;
+//    }
 
     @RequestMapping(value = "/usersupport", method = RequestMethod.GET)
     public ModelAndView usersupportPage(HttpServletRequest request, HttpSession session) throws Exception {

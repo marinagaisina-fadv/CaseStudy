@@ -61,7 +61,7 @@ Last updated: <%= new java.util.Date() %>
     </ol>
 </div>
 <h1>Beans</h1>
-    <jsp:useBean id="studentsList" scope="request" type="java.util.List"/>
+<%--    <jsp:useBean id="studentsList" scope="request" type="java.util.List"/>--%>
     <c:forEach items="${studentsList}" var="student">
         <li>${student}</li>
     </c:forEach>

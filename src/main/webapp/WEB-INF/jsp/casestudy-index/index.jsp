@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <jsp:include page="../include/header.jsp" />
 
 <main>
@@ -8,22 +9,25 @@
         <p class="fs-5 text-darkblue w-75 m-auto text-center">Please <a href="#" onclick="formOpenClose('login-article')">Login</a> or <a href="/case/register">Register</a></p>
         <div class="row justify-content-center">
             <article id="login-article" class="d-none col col-lg-5 col-md-7 col-sm-10 shadow-lg rounded15px p-5 mt-3 text-start">
-                <form action="#" name="login_form" class="row needs-validation" novalidate>
-                    <input type="email" class="form-control" name="email" placeholder="Enter your email in format abc@abc.com" required aria-describedby="validationEmailLogin">
-                    <!--                        <div class="valid-feedback">-->
-                    <!--                            Passed!-->
-                    <!--                        </div>-->
-                    <div id="validationEmailLogin" class="invalid-feedback">
-                        Please enter a valid email address.
+                <form action="#" name="login_form" class="row">
+                    <input type="text" class="form-control" name="email" placeholder="Enter your email in format abc@abc.com">
+                    <div class="text-danger">
+                        <c:if test="${loginBean.map.containsKey('email')}">
+                            Please enter a valid email address. Check the details below. You&nbspentered:&nbsp"${LoginBean.map.get('email').getRejectedValue()}"
+                        </c:if>
                     </div>
-                    <input type="password" class="mt-3 form-control" name="pass" placeholder="Enter your password" required aria-describedby="validationPassLogin">
-                    <!--                        <div class="valid-feedback">-->
-                    <!--                            Passed!-->
-                    <!--                        </div>-->
-                    <div id="validationPassLogin" class="invalid-feedback">
-                        The mentioned pass didn't work.
+                    <input type="password" class="mt-3 form-control" name="pass" placeholder="Enter your password">
+                    <div class="text-danger">
+                        <c:if test="${loginBean.map.containsKey('password')}">
+                            The mentioned pass didn't work. Check the details below. You&nbspentered:&nbsp"${LoginBean.map.get('email').getRejectedValue()}"
+                        </c:if>
                     </div>
                     <button class="mt-3 btn btn-dark btn-lg btn-block" type="submit">Login</button>
+                    <div class="mt-3">
+                        <c:forEach items="${loginBean.errorMessages}" var="message">
+                            <span class="text-secondary"><i class="fas fa-circle me-2"></i>${message}</span><br>
+                        </c:forEach>
+                    </div>
                     <a class="mb-3 mt-3 small text-muted" href="#">Forgot password?</a>
                     <p class="mb-3">Don't have an account? <a href="/case/register">Register here</a></p>
                     <a class="text-right text-muted" onclick="formOpenClose('login-article')" href="#">close</a>
