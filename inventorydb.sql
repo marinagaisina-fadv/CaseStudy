@@ -54,11 +54,11 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_bin;
 
-ALTER TABLE `inventorydb`.`item_customer` 
+ALTER TABLE `inventorydb`.package
 ADD COLUMN `pallet_id` INT NULL DEFAULT NULL AFTER `customer_id`,
 ADD INDEX `fk_pallet_idx` (`pallet_id` ASC) VISIBLE;
 ;
-ALTER TABLE `inventorydb`.`item_customer` 
+ALTER TABLE `inventorydb`.package
 ADD CONSTRAINT `fk_pallet`
   FOREIGN KEY (`pallet_id`)
   REFERENCES `inventorydb`.`pallets` (`id`)

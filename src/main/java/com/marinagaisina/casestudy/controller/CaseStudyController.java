@@ -1,7 +1,9 @@
 package com.marinagaisina.casestudy.controller;
 
 import com.marinagaisina.casestudy.beans.RegisterFormBean;
+import com.marinagaisina.casestudy.database.dao.ParcelDAO;
 import com.marinagaisina.casestudy.database.dao.UserDAO;
+import com.marinagaisina.casestudy.database.entities.Parcel;
 import com.marinagaisina.casestudy.database.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Locale;
 
 @Controller
 @RequestMapping(value = "/case")
@@ -24,6 +25,9 @@ public class CaseStudyController {
 
     @Autowired
     private UserDAO userDAO;
+
+    @Autowired
+    private ParcelDAO parcelDAO;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView showMainWindow(HttpServletRequest request, HttpSession session) throws Exception {
@@ -117,21 +121,21 @@ public class CaseStudyController {
         if ( !StringUtils.isEmpty(search)) {
             List<User> users = userDAO.findByFirstNameLike(search);
             response.addObject("userListKey", users);
-            for (User user : users) {
-                System.out.println(user.getId()+" "+user.getEmail());
-            }
+//            for (User user : users) {
+//                System.out.println(user.getId()+" "+user.getEmail());
+//            }
         }
         return response;
     }
     @RequestMapping(value = "/allitems", method = RequestMethod.GET)
-    public ModelAndView allitems(@RequestParam(required = false) String search) throws Exception {
+    public ModelAndView allitems(@RequestParam(required = false) String searchParcels) throws Exception {
         ModelAndView response = new ModelAndView();
         response.setViewName("casestudy-index/allitems");
-        if ( !StringUtils.isEmpty(search)) {
-            List<User> users = userDAO.findByFirstNameLike(search);
-            response.addObject("userListKey", users);
-            for (User user : users) {
-                System.out.println(user.getId()+" "+user.getEmail());
+        if ( !StringUtils.isEmpty(searchParcels)) {
+            List<Parcel> parcels = parcelDAO.findAllParcelsOfCustomerNameLike(searchParcels);
+            response.addObject("parcelListKey", parcels);
+            for (Parcel p : parcels) {
+                System.out.println("Parcel id: " + p.getId()+". Pallet id: "+p.getPallet());
             }
         }
         return response;

@@ -5,7 +5,7 @@
 <main>
     <form method="GET" action="/case/allitems">
         <div class="m-auto col col-xl-5 col-md-8 d-flex shadow-lg rounded15px">
-            <input type="text" class="form-control" name="searchCustomers" placeholder="Find a list of customers by first name LIKE...Type % to see all customers">
+            <input type="text" class="form-control" name="searchParcels" placeholder="Find a list of customers by first name LIKE...Type % to see all customers">
             <button class="btn btn-dark btn-block" type="submit">Search</button>
             <a class="btn btn-dark btn-block" onclick="formOpenClose('customers-article')" href="#">open/close</a>
         </div>
@@ -14,17 +14,23 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Full name</th>
-                <th scope="col">Delivery address</th>
+                <th scope="col">Parcel id</th>
+                <th scope="col">item_id</th>
+                <th scope="col">item_name</th>
+                <th scope="col">customer_id</th>
+                <th scope="col">customer_name</th>
+                <th scope="col">pallet_id</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${customerListKey}" var="customer">
+            <c:forEach items="${parcelListKey}" var="parcel">
                 <tr>
-                    <th scope="row">${customer.id}</th>
-                    <td>${customer.fullName}</td>
-                    <td>${customer.deliveryAddress}</td>
+                    <th scope="row">${parcel.id}</th>
+                    <td>${parcel.item.id}</td>
+                    <td>${parcel.item.name}</td>
+                    <td>${parcel.customer.id}</td>
+                    <td>${parcel.customer.fullName}</td>
+                    <td>${parcel.pallet.id}</td>
                 </tr>
             </c:forEach>
             </tbody>
