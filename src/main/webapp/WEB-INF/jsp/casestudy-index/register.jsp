@@ -40,13 +40,13 @@
                             Please, generate your username.
                         </c:if>
                     </div>
-                    <input type="text" class="mt-3 form-control" name="phone" value="${formBeanKey.phone}" placeholder="Enter your cell-phone number">
-                    <div class="text-danger">
-                        <c:if test="${formBeanKey.map.containsKey('phone')}">
-                            Please enter a valid cell-phone number Check the details below.
-                        </c:if>
-                    </div>
                     <button class="btn bg-info bg-gradient btn-lg btn-block" type="button" onclick="generateUsername()">Click for generate your username</button>
+                </div>
+                <input type="text" class="mt-3 form-control" name="phone" value="${formBeanKey.phone}" placeholder="Enter your cell-phone number">
+                <div class="text-danger">
+                    <c:if test="${formBeanKey.map.containsKey('phone')}">
+                        Please enter a valid cell-phone number Check the details below.
+                    </c:if>
                 </div>
                 <button class="mt-3 btn btn-dark btn-lg btn-block" type="submit">Register</button>
 <%--                <button class="w-50 m-auto mt-3 btn btn-secondary btn-lg" type="reset">Reset form values to default</button>--%>

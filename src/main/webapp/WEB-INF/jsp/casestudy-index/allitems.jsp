@@ -4,10 +4,10 @@
 
 <main>
     <form method="GET" action="/case/allitems">
-        <div class="m-auto col col-xl-5 col-md-8 d-flex shadow-lg rounded15px">
-            <input type="text" class="form-control" name="searchParcels" placeholder="Find a list of customers by first name LIKE...Type % to see all customers">
-            <button class="btn btn-dark btn-block" type="submit">Search</button>
-            <a class="btn btn-dark btn-block" onclick="formOpenClose('customers-article')" href="#">open/close</a>
+        <div class="m-auto col col-xl-8 col-md-10 d-flex shadow-lg rounded15px">
+            <input type="text" class="form-control" name="searchParcels" placeholder="Get list of parcels where customer name LIKE...Type % to see all parcels">
+            <button class="btn btn-dark" type="submit">Search</button>
+            <a class="ms-2 btn btn-secondary" onclick="formOpenClose('customers-article')" href="#">Open/close</a>
         </div>
     </form>
     <article id="customers-article" class="m-auto col col-xl-8 col-md-12 shadow-lg rounded15px p-5 mt-4">
@@ -38,10 +38,10 @@
     </article>
 
     <form class="mt-5" method="GET" action="/case/allitems">
-        <div class="m-auto col col-xl-5 col-md-8 d-flex shadow-lg rounded15px">
+        <div class="m-auto col col-xl-5 col-md-10 d-flex shadow-lg rounded15px">
             <input type="text" class="form-control" name="searchItems" placeholder="Find a list of items by name LIKE...Type % to see all items">
-            <button class="btn btn-dark btn-block" type="submit">Search</button>
-            <a class="btn btn-dark btn-block" onclick="formOpenClose('items-article')" href="#">open/close</a>
+            <button class="btn btn-dark" type="submit">Search</button>
+            <a class="ms-2 btn btn-secondary" onclick="formOpenClose('items-article')" href="#">Open/close</a>
         </div>
     </form>
     <article id="items-article" class="m-auto col col-xl-8 col-md-12 shadow-lg rounded15px p-5 mt-4">
