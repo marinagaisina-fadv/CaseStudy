@@ -36,8 +36,8 @@ public class Customer {
 //    )
 //    private List<Item> items = new ArrayList<>();
 
-    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY,
-            cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)//,
+            //cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Parcel> parcelLinks = new ArrayList<>();
 
     @Override

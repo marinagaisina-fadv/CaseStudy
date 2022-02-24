@@ -24,3 +24,30 @@ const generateUsername= () => {
     usernameText += "@"+ firstName.value.substring(0,2)+lastName.value.substring(0,3)+email.value.substring(0,3)+Math.floor((Math.random() * 1000) + 1);
     username.setAttribute('value', usernameText);
 }
+
+const classToggle = (param) => {
+    const element= document.getElementById(param);
+    element.classList.toggle('d-none');
+}
+
+const plusSignClickHandler = (obj, param) => {
+    let icon = obj.getElementsByTagName('i')[0];
+    if (icon.classList.contains('fa-circle-plus')) {
+        icon.classList.remove('fa-circle-plus');
+        icon.classList.add('fa-minus');
+    } else {
+        icon.classList.remove('fa-minus');
+        icon.classList.add('fa-circle-plus');
+    }
+    const element= document.getElementById(param);
+    element.classList.toggle('d-none');
+}
+
+const clear = () => {
+
+}
+
+const customerHoverHandler = (customer) => {
+    // let customerHover = document.getElementById(customer);
+    classToggle(customer);
+}

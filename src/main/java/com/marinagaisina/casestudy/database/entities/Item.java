@@ -32,23 +32,23 @@ public class Item {
     @Column(name = "avail_quantity")
     private Integer availQuantity;
 
-    @Column(name = "quantity_to_package")
-    private Integer quantityToPackage;
-
     @Column(name = "image_url")
     private String imageUrl;
 
-//    @ManyToMany(cascade={CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "item_customer",
-//            joinColumns = @JoinColumn(name = "item_id", referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "id")
-//    )
-//    private List<Customer> customers = new ArrayList<>();
+    @Column(name = "quantity_to_package")
+    private Integer quantityToPackage;
 
-    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY,
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "package_item",
+            joinColumns = @JoinColumn(name = "item_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "package_id", referencedColumnName = "id")
+    )
+    private List<Parcel> packages = new ArrayList<>();
+
+    /*@OneToMany(mappedBy = "item", fetch = FetchType.LAZY,
             cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH})
-    private List<Parcel> parcelLinks = new ArrayList<>();
+    private List<Parcel> parcelLinks = new ArrayList<>();*/
 
     @Override
     public String toString() {

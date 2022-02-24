@@ -43,8 +43,8 @@ public class Pallet {
     @Column(name = "status_will_be_generated")
     private String status;
 
-    @OneToMany(mappedBy = "pallet", fetch = FetchType.LAZY,
-            cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "pallet", fetch = FetchType.LAZY)//,
+            //cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Parcel> packagesList = new ArrayList<>();
 
 

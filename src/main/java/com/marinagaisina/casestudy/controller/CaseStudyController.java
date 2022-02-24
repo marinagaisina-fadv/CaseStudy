@@ -128,16 +128,18 @@ public class CaseStudyController {
         return response;
     }
     @RequestMapping(value = "/allitems", method = RequestMethod.GET)
-    public ModelAndView allitems(@RequestParam(required = false) String searchParcels) throws Exception {
+    public ModelAndView allitems(@RequestParam(required = false) String searchParcelsByCustomerNameLike,
+                                 @RequestParam(required = false) String searchParcelsByItemNameLike) throws Exception {
         ModelAndView response = new ModelAndView();
-        response.setViewName("casestudy-index/allitems");
-        if ( !StringUtils.isEmpty(searchParcels)) {
-            List<Parcel> parcels = parcelDAO.findAllParcelsOfCustomerNameLike(searchParcels);
+        if ( !StringUtils.isEmpty(searchParcelsByCustomerNameLike)) {
+            List<Parcel> parcels = parcelDAO.findAllParcelsOfCustomerNameLike(searchParcelsByCustomerNameLike);
             response.addObject("parcelListKey", parcels);
-            for (Parcel p : parcels) {
-                System.out.println("Parcel id: " + p.getId()+". Pallet id: "+p.getPallet());
-            }
         }
+        if ( !StringUtils.isEmpty(searchParcelsByItemNameLike)) {
+            List<Parcel> parcels2 = parcelDAO.findParcelsByItemNameLike(searchParcelsByItemNameLike);
+            response.addObject("parcelsByItemNameListKey", parcels2);
+        }
+        response.setViewName("casestudy-index/allitems");
         return response;
     }
 }

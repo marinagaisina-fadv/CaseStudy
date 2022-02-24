@@ -2,7 +2,7 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <jsp:include page="../include/header.jsp" />
 
-<main>
+<main class="marginForFooter">
     <form method="GET" action="/case/userList">
         <div class="m-auto col col-xl-5 col-md-8 d-flex shadow-lg rounded15px">
             <input type="text" class="form-control" name="search" placeholder="Find a list of users by first name LIKE...Type % to see all users">
