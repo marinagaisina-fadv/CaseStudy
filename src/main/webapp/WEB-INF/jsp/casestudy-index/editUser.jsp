@@ -4,16 +4,18 @@
 
 <main>
     <div class="marginForFooter container">
-        <h2 class="display-4 text-darkblue text-center">New users registration</h2>
+        <h2 class="display-4 text-darkblue text-center">Edit user's profile</h2>
         <article id="article-register" class="m-auto col col-xl-7 col-md-10 shadow-lg rounded15px p-5 mt-4">
-            <form method="GET" action="/case/registerSubmit" name="register-form" class="row">
+            <form method="GET" action="/case/editUserSubmit" class="row">
                 <input type="hidden" name="id" value="${formBeanKey.id}">
 
-                <input type="text" class="form-control" name="email" value="${formBeanKey.email}" placeholder="Enter your email in format abc@abc.com">
-                <div class="text-danger">
-                    <c:if test="${formBeanKey.map.containsKey('email')}">
-                        Please enter a valid email address. Check the details below.
-                    </c:if>
+                <input type="text" class="form-control" name="locationAddress" value="${formBeanKey.locationAddress}" readonly>
+                <div class="text-secondary">
+                    You can't change your default location. Your location can be changed by user support team.
+                </div>
+                <input type="text" class="form-control" name="email" value="${formBeanKey.email}" readonly>
+                <div class="text-secondary">
+                    You can't change your email. You may be given a new account by user support team.
                 </div>
                 <input type="text" class="mt-3 form-control" name="firstName" value="${formBeanKey.firstName}" placeholder="Enter your first name">
                 <div class="text-danger">
@@ -34,40 +36,28 @@
                     </c:if>
                 </div>
                 <input type="password" class="mt-3 form-control" name="confirmPassword" value="${formBeanKey.confirmPassword}" placeholder="Confirm your password">
-                <div class="d-flex p-0 flex-column">
-                <input type="text" class="mt-3 form-control" name="username" placeholder="Username" readonly>
+                <input type="text" class="mt-3 form-control" name="username" value="${formBeanKey.username}" readonly>
 
-                <div class="text-danger">
-                    <c:if test="${formBeanKey.map.containsKey('username')}">
-                        Please, generate your username.
-                    </c:if>
+                <div class="text-secondary">
+                    You can't change your username. You may be given a new account by user support team.
                 </div>
-                <button class="btn bg-info bg-gradient btn-lg btn-block" type="button" onclick="generateUsername()">Click for generate your username</button>
 
-                </div>
                 <input type="text" class="mt-3 form-control" name="phone" value="${formBeanKey.phone}" placeholder="Enter your cell-phone number">
                 <div class="text-danger">
                     <c:if test="${formBeanKey.map.containsKey('phone')}">
                         Please enter a valid cell-phone number Check the details below.
                     </c:if>
                 </div>
-                <button class="mt-3 btn btn-dark btn-lg btn-block" type="submit">Register</button>
-<%--                <button class="w-50 m-auto mt-3 btn btn-secondary btn-lg" type="reset">Reset form values to default</button>--%>
+                <button class="mt-3 btn btn-dark btn-lg btn-block" type="submit">Submit Edit</button>
+                <%--                <button class="w-50 m-auto mt-3 btn btn-secondary btn-lg" type="reset">Reset form values to default</button>--%>
                 <div class="mt-3 text-secondary">
                     <c:forEach items="${formBeanKey.map.keySet()}" var="key">
                         <i class="fas fa-circle me-2"></i>Error in '${key}'. ${formBeanKey.getMap().get(key).getDefaultMessage()}<br>
                     </c:forEach>
                 </div>
+                <a class="mt-5 text-muted" href="/case">Go to Main page (without saving the changes)</a>
             </form>
         </article>
-        <div class="w-75 m-auto mt-4 fs-5 text-darkblue">
-            <p><i class="far fa-circle me-2"></i>Make sure you were given a permission  <span class="text-bold">for accessing Inventory Management System</span>.<br>
-                Check your email for an email from support@ims.com. Your permission's details must be described in the email under topic "IMA Permission".<br>
-            <p><i class="far fa-circle me-2"></i>In order to get a permission, please contact to our <a href="/case/usersupport">user support team</a>.<br>
-            You will need to attach your manager's approval with your request for getting a permission.</p>
-            <a class="mt-5 text-muted" href="/case">Go to Main page</a>
-        </div>
-
     </div>
 </main>
 

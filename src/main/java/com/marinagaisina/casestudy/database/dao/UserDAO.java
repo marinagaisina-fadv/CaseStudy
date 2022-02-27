@@ -5,9 +5,11 @@ import com.marinagaisina.casestudy.database.entities.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+//@Repository - instead of extending JpaRepository, can use annotation @Repository
 public interface UserDAO extends JpaRepository<User, Long> {
 
     User findById(@Param("id") Integer id);
@@ -23,13 +25,13 @@ public interface UserDAO extends JpaRepository<User, Long> {
     @Query("select ur from UserRole ur where ur.user.id = :userId")
     List<UserRole> getUserRoles(Integer userId);
 
-    @Query(value = "select u.* from users u where u.first_name like CONCAT('%',:firstNameLike,'%')", nativeQuery = true)
-    List<User> findByFirstNameLike(@Param("firstNameLike") String firstNameLike);
+    @Query(value = "select u.* from users u where LOWER(u.first_name) like CONCAT('%',:firstNameLike,'%') or LOWER(u.last_name) like CONCAT('%',:lastNameLike,'%')", nativeQuery = true)
+    List<User> findByFirstNameLikeIgnoreCaseOrLastNameLikeIgnoreCase(@Param("firstNameLike") String firstNameLike, @Param("lastNameLike") String lastNameLike);
 
     @Query(value = "SELECT * FROM Users u WHERE u.username = ?1", nativeQuery = true)
     User findUserByUsernameNative(Integer status);
 
     @Query("SELECT u FROM User u WHERE u.email = ?1 and u.lastName = ?2")
-    User findUserByStatusAndName(String email, String lastName);
+    User findUserByEmailAndLastName(String email, String lastName);
 }
 

@@ -45,16 +45,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // this line allows access to these URLs whithout the user logged in
                 // they are considered public URLs
                 // ** TODO THESE 2 LINES WILL PROBABLY NEED TO BE CHANGED FOR YOUR PROJECT **
-                .antMatchers("/pub/**", "/error/**", "/login/**","/search").permitAll()
+
+                //.antMatchers("/pub/**", "/error/**", "/login/**").permitAll()
+                .antMatchers("/**").permitAll()
+
                 // these are URLs that the user must be authenticated for
-                .antMatchers("/case/allitems/**", "/case/admin/**", "/user/**").authenticated()
+
+                //.antMatchers("/case/packages/**", "/case/admin/**", "/case/user/**").authenticated()
+                //.antMatchers("/**").authenticated()
                 .and()
                 .formLogin()
                 // this is the URL for the login page - displays your JSP page for login
                 // this needs to be implemented in a controller.  This will get called when there is an invalid login attempt
                 // TODO create a controller method for this URL
                 .loginPage("/case")
-                .successForwardUrl("/case/userList")
+                //.successForwardUrl("/case/admin")
 
                 // this is the URL where the login page submits to be processed by spring security
                 // !!!!!!!!!!!!!!!!!!!!!!!! this is implemented by spring security and does not need a controller

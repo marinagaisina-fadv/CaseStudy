@@ -1,5 +1,6 @@
 package com.marinagaisina.casestudy.controller;
 
+import com.marinagaisina.casestudy.beans.EditUserBean;
 import com.marinagaisina.casestudy.beans.RegisterFormBean;
 import com.marinagaisina.casestudy.database.dao.LocationDAO;
 import com.marinagaisina.casestudy.database.dao.ParcelDAO;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequestMapping(value = "/case")
@@ -60,13 +62,26 @@ public class CaseStudyController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public ModelAndView registerPage(HttpServletRequest request, HttpSession session) throws Exception {
+    public ModelAndView registerPage(@RequestParam(required = false) Integer id) throws Exception {
 
         ModelAndView response = new ModelAndView();
         response.setViewName("casestudy-index/register");
+        RegisterFormBean form = new RegisterFormBean();
 
-        RegisterFormBean registerFormBean = new RegisterFormBean();
-        response.addObject("formBeanKey", registerFormBean);
+        if (id != null) {
+            User user = userDAO.findById(id);
+            form.setId(user.getId());   //gets data from the hidden input in JSP
+            form.setEmail(user.getEmail());
+            form.setFirstName(user.getFirstName());
+            form.setLastName(user.getLastName());
+            form.setUsername(user.getUsername());
+            form.setPassword(user.getPassword());
+            form.setDefaultLocation(user.getDefaultLocation());
+            response.setViewName("casestudy-index/editUser");
+        } else {
+            response.setViewName("casestudy-index/register");
+        }
+        response.addObject("formBeanKey", form);
         return response;
     }
 
@@ -91,11 +106,16 @@ public class CaseStudyController {
             response.setViewName("casestudy-index/register");
         }
         else {
-            // there are no errors on the form submission lets redirect to the login page
-            // right here that you would save the new user registration to the database
-            // however we will get to this later in the week when spring JPA
-            User user = new User();
+            // there are no errors on the form submission so this is either a create or an update
 
+            User user;
+
+            if (form.getId() == null) {
+                // this is a creation because the incoming id is null (I set id only in case we pass an id for editing user (in /register controller)
+                user = new User();
+            } else {
+                user = userDAO.findById(form.getId());
+            }
             user.setEmail(form.getEmail());
             user.setFirstName(form.getFirstName());
             user.setLastName(form.getLastName());
@@ -122,6 +142,60 @@ public class CaseStudyController {
         return response;
     }
 
+    @RequestMapping(value = "/editUser", method = RequestMethod.GET)
+    public ModelAndView editUser(@RequestParam Integer id) throws Exception {
+
+        ModelAndView response = new ModelAndView();
+        response.setViewName("casestudy-index/editUser");
+        EditUserBean form = new EditUserBean();
+        User user = userDAO.findById(id);
+        form.setId(user.getId());   //gets data from the hidden input in JSP
+        form.setEmail(user.getEmail());
+        form.setFirstName(user.getFirstName());
+        form.setLastName(user.getLastName());
+        form.setUsername(user.getUsername());
+        form.setPassword(user.getPassword());
+        form.setLocationAddress(user.getDefaultLocation().getAddress());
+        response.setViewName("casestudy-index/editUser");
+
+        response.addObject("formBeanKey", form);
+        return response;
+    }
+
+    @RequestMapping(value = "/editUserSubmit", method = RequestMethod.GET)
+    public ModelAndView editUserSubmit(@Valid EditUserBean form, BindingResult errors) throws Exception {
+        ModelAndView response = new ModelAndView();
+        response.addObject("formBeanKey", form);
+
+        if (errors.hasErrors()) {
+            for ( FieldError error : errors.getFieldErrors() ) {
+                // My version: by using a Map<String, FieldError> map, and keeping error object in it, I'll have an access to entire error object
+                // and will be able to get anything like error.getDefaultMessage(), error.getRejectedValue()
+                form.getMap().put(error.getField(), error);
+            }
+
+            response.setViewName("casestudy-index/editUser");
+        }
+        else {
+            // there are no errors on the form submission so this is an update
+            User user = userDAO.findById(form.getId());
+            user.setUsername(form.getUsername());
+            user.setFirstName(form.getFirstName());
+            user.setLastName(form.getLastName());
+            user.setPassword(passwordEncoder.encode(form.getPassword()));
+            user.setPhone(form.getPhone());
+            userDAO.save(user);
+
+            response.setViewName("casestudy-index/editUserSuccess");
+        }
+
+        return response;
+    }
+
+
+
+
+
     @RequestMapping(value = "/usersupport", method = RequestMethod.GET)
     public ModelAndView usersupportPage(HttpServletRequest request, HttpSession session) throws Exception {
         ModelAndView response = new ModelAndView();
@@ -136,7 +210,9 @@ public class CaseStudyController {
         response.setViewName("casestudy-index/userList");
 
         if ( !StringUtils.isEmpty(search)) {
-            List<User> users = userDAO.findByFirstNameLike(search);
+            // making case-insensitive:
+            search = search.toLowerCase(Locale.ROOT);
+            List<User> users = userDAO.findByFirstNameLikeIgnoreCaseOrLastNameLikeIgnoreCase(search, search);
             response.addObject("userListKey", users);
 //            for (User user : users) {
 //                System.out.println(user.getId()+" "+user.getEmail());
@@ -144,7 +220,7 @@ public class CaseStudyController {
         }
         return response;
     }
-    @RequestMapping(value = "/allitems", method = RequestMethod.GET)
+    @RequestMapping(value = "/packages", method = RequestMethod.GET)
     public ModelAndView allitems(@RequestParam(required = false) String searchParcelsByCustomerNameLike,
                                  @RequestParam(required = false) String searchParcelsByItemNameLike) throws Exception {
         ModelAndView response = new ModelAndView();
@@ -156,7 +232,7 @@ public class CaseStudyController {
             List<Parcel> parcels2 = parcelDAO.findParcelsByItemNameLike(searchParcelsByItemNameLike);
             response.addObject("parcelsByItemNameListKey", parcels2);
         }
-        response.setViewName("casestudy-index/allitems");
+        response.setViewName("casestudy-index/packages");
         return response;
     }
 }

@@ -9,21 +9,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
+@RequestMapping(value = "/case")
 public class LoginController {
 
     // TODO create this controller with these 2 methods to give a view for the login page and for the logoutsuccess page
 
-    @RequestMapping(value = "/case/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView index(HttpServletRequest request, HttpSession session) throws Exception {
         ModelAndView response = new ModelAndView();
-        response.setViewName("casestudy/index");
+        response.setViewName("casestudy-index/index");
         return response;
     }
 
-    @RequestMapping(value = "/case/logoutSuccess", method = RequestMethod.GET)
+    @RequestMapping(value = "/logoutSuccess", method = RequestMethod.GET)
     public ModelAndView logoutSuccess(HttpServletRequest request, HttpSession session) throws Exception {
         ModelAndView response = new ModelAndView();
-        response.setViewName("casestudy/logoutSuccess");
+        response.setViewName("casestudy-index/logoutSuccess");
         return response;
     }
 

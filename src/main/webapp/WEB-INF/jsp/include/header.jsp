@@ -32,7 +32,7 @@
             <nav class="navbar navbar-expand-sm navbar-dark p-0">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="/case/allitems">All items</a>
+                        <a class="nav-link" href="/case/packages">Packages</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/case/usersupport">User support</a>

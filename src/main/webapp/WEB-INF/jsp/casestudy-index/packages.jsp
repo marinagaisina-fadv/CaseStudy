@@ -7,7 +7,7 @@
 <%--</c:if>--%>
 
 <main class="marginForFooter">
-    <form method="GET" action="/case/allitems">
+    <form method="GET" action="/case/packages">
         <div class="m-auto col col-xl-8 col-md-10 d-flex shadow-lg rounded15px">
             <input type="text" class="form-control" name="searchParcelsByCustomerNameLike" placeholder="Get list of parcels where customer name LIKE...Type % to see all parcels"
             value="">
@@ -76,7 +76,7 @@
         </table>
     </article>
 
-    <form class="mt-5" method="GET" action="/case/allitems">
+    <form class="mt-5" method="GET" action="/case/packages">
         <div class="m-auto col col-xl-8 col-md-10 d-flex shadow-lg rounded15px">
             <input type="text" class="form-control" name="searchParcelsByItemNameLike" placeholder="Get list of parcels that contain items name LIKE...Type % to see all items">
             <button class="btn btn-dark" type="submit">Search</button>

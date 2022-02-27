@@ -11,7 +11,7 @@
             <div class="d-flex align-content-center justify-content-end">
                 <p class="m-0 align-self-center">Now you can Login in the </p><a class="btn bg-info bg-gradient btn-lg btn-block" href="/case">Main Page</a>
             </div>
-            <p class="mt-4 text-secondary">If you experience any issues, please contact to our <a href="/case/usersupport">user support team.</a></p>
+            <p class="mt-4 text-secondary">If you experience any issues, please contact our <a href="/case/usersupport">user support team.</a></p>
         </article>
     </div>
 </main>

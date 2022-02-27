@@ -3,13 +3,13 @@
 <jsp:include page="../include/header.jsp" />
 
 <main class="marginForFooter">
-    <form method="GET" action="/case/userList">
+    <form method="GET" action="/case/admin">
         <div class="m-auto col col-xl-5 col-md-8 d-flex shadow-lg rounded15px">
-            <input type="text" class="form-control" name="search" placeholder="Find a list of users by first name LIKE...Type % to see all users">
+            <input type="text" class="form-control" name="search" placeholder="Get list of users by first name or last name LIKE (ignore case)...Type % to see all users">
             <button class="btn btn-dark btn-block" type="submit">Search</button>
         </div>
     </form>
-    <article class="m-auto col col-xl-8 col-md-12 shadow-lg rounded15px p-5 mt-4">
+    <article class="m-auto col col-xl-8 col-md-10 shadow-lg rounded15px p-5 mt-4">
         <table class="table">
             <thead>
             <tr>
@@ -18,7 +18,8 @@
                 <th scope="col">Email</th>
                 <th scope="col">First Name</th>
                 <th scope="col">Last Name</th>
-                <th scope="col">Password</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
             </tr>
             </thead>
             <tbody>
@@ -29,7 +30,8 @@
                     <td>${user.email}</td>
                     <td>${user.firstName}</td>
                     <td>${user.lastName}</td>
-                    <td>${user.password}</td>
+                    <td><a class="btn btn-secondary" href="/case/editUser?id=${user.id}">Edit</a></td>
+                    <td><a class="btn btn-warning" href="">Delete</a></td>
                 </tr>
             </c:forEach>
             </tbody>
