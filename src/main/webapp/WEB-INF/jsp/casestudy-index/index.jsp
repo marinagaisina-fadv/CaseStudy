@@ -9,19 +9,10 @@
         <p class="fs-5 text-darkblue w-75 m-auto text-center">Please <a href="#" onclick="formOpenClose('login-article')">Login</a> or <a href="/case/register">Register</a></p>
         <div class="row justify-content-center">
             <article id="login-article" class="d-none col col-lg-5 col-md-7 col-sm-10 shadow-lg rounded15px p-5 mt-3 text-start">
-                <form action="#" name="login_form" class="row">
-                    <input type="text" class="form-control" name="email" placeholder="Enter your email in format abc@abc.com">
-                    <div class="text-danger">
-                        <c:if test="${loginBean.map.containsKey('email')}">
-                            Please enter a valid email address. Check the details below. You&nbspentered:&nbsp"${LoginBean.map.get('email').getRejectedValue()}"
-                        </c:if>
-                    </div>
+                <form action="/case/loginSecurityPost" name="login_form" class="row">
+                    <input type="text" class="form-control" name="username" placeholder="Enter your username">
+
                     <input type="password" class="mt-3 form-control" name="pass" placeholder="Enter your password">
-                    <div class="text-danger">
-                        <c:if test="${loginBean.map.containsKey('password')}">
-                            The mentioned pass didn't work. Check the details below. You&nbspentered:&nbsp"${LoginBean.map.get('email').getRejectedValue()}"
-                        </c:if>
-                    </div>
                     <button class="mt-3 btn btn-dark btn-lg btn-block" type="submit">Login</button>
                     <div class="mt-3">
                         <c:forEach items="${loginBean.errorMessages}" var="message">

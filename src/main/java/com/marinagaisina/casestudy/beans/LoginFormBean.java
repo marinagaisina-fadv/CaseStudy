@@ -17,11 +17,11 @@ import java.util.Map;
 @Setter
 public class LoginFormBean {
 
-    // making sure the email is not null and is not empty as in ""
-    @NotEmpty(message = "Email is required.")
-    @Pattern(regexp = "^.+@.+$" , message = "Invalid email format")
-    @EmailUnique(message = "Email must be unique")
-    private String email;
+    // making sure the username is not null and is not empty as in ""
+    @NotEmpty(message = "Username is required.")
+//    @Pattern(regexp = "^.+@.+$" , message = "Invalid email format")
+//    @EmailUnique(message = "Email must be unique")
+    private String username;
 
     /*// these annotations work on integer values only
     @Min(value=3, message="Age must be at least 3")
@@ -34,8 +34,6 @@ public class LoginFormBean {
     // this list is populated by the controller with all error messages
     // in the binding result."
     private List<String> errorMessages = new LinkedList<>();
-
-    private Map<String, FieldError> map = new HashMap<>();
 
     @Override
     public String toString() {

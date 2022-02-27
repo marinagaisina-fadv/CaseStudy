@@ -6,6 +6,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -38,8 +39,12 @@ public class User {
     @Column(name = "phone")
     private String phone;
 
-    @Column(name= "default_location_id")
-    private Integer defaultLocationId;
+    @ManyToOne
+    @JoinColumn(name= "default_location_id")
+    private Location defaultLocation;
+
+//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+//    private List<UserRole> userRoles;
 
     @Override
     public String toString() {

@@ -39,10 +39,15 @@ public class EmailUniqueImpl implements ConstraintValidator<EmailUnique, String>
         boolean passes = true;
         if (userDao.findByEmail(value) != null) {
             passes = false;
+            LOG.warn("This email is already exists in the DB.");
         }
 
         return passes;
     }
+    /*
+    User user = userDao.findByEmail(value);
+    return (user == null);
+     */
 
 }
 

@@ -45,7 +45,7 @@
                         <a class="nav-link disabled" href="#">Shipments</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/case/userList">Admin</a>
+                        <a class="nav-link" href="/case/admin">Admin</a>
                     </li>
                     <li class="nav-item dropend">
                         <a class="nav-link dropdown-toggle disabled" type="button" data-bs-toggle="dropdown" aria-expanded="false">Reports</a>

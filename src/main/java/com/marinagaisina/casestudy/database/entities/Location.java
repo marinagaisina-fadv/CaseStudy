@@ -18,4 +18,15 @@ public class Location {
     @Column(name = "address")
     private String address;
 
+    // contact email for the location
+    @Column(name ="email")
+    private String email;
+
+    // contact number for the location
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "type")
+    private String type;
+
 }
