@@ -47,24 +47,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // ** TODO THESE 2 LINES WILL PROBABLY NEED TO BE CHANGED FOR YOUR PROJECT **
 
                 //.antMatchers("/pub/**", "/error/**", "/login/**").permitAll()
-                .antMatchers("/**").permitAll()
-
+                .antMatchers("/case", "/pub/**", "/js/**", "/usersupport", "/register", "/registerSubmit","/admin", "/packages",
+                        "/customers", "/items", "/pallets","/locations", "/editUser", "/editUserSubmit", "/profile", "/registerCreate",
+                        "/addPackageToPallet", "/addItemsToPackage", "/editPackage", "/editPallet", "/itemDetails", "/customerDetails").permitAll()
+                //.antMatchers("/case", "/pub/**", "/js/**", "/usersupport", "/register", "/registerSubmit", "/").permitAll()
                 // these are URLs that the user must be authenticated for
 
-                //.antMatchers("/case/packages/**", "/case/admin/**", "/case/user/**").authenticated()
-                //.antMatchers("/**").authenticated()
+                //.antMatchers("/admin", "/packages", "/customers", "/items", "/pallets", "/locations", "/editUser", "/editUserSubmit", "/profile").authenticated()
+                .antMatchers("/**").authenticated()
                 .and()
                 .formLogin()
                 // this is the URL for the login page - displays your JSP page for login
                 // this needs to be implemented in a controller.  This will get called when there is an invalid login attempt
                 // TODO create a controller method for this URL
                 .loginPage("/case")
-                //.successForwardUrl("/case/admin")
+                //.successForwardUrl("/admin")
 
                 // this is the URL where the login page submits to be processed by spring security
                 // !!!!!!!!!!!!!!!!!!!!!!!! this is implemented by spring security and does not need a controller
                 // TODO make your login page form action point to this URL with a method = POST
-                .loginProcessingUrl("/case/loginSecurityPost")
+                .loginProcessingUrl("/loginSecurityPost")
                 //.successHandler(successHandler)
                 //.failureHandler(failureHandler)
                 .and()
@@ -77,11 +79,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // !!!!!!!!!!!!!!!!!!!!!!!! this is implemented by spring security in a hidden controller specific for spring security
                 // we do not need to create a controller method for this in our controllers
                 // TODO make your logout link in your header point to this URL
-                .logoutUrl("/case/logout")
+                .logoutUrl("/logout")
 
                 // this is the URL the user will be redirected to after the have logged out this can be any page you want
                 // TODO implement a method in your LoginController to set the view for this URL
-                .logoutSuccessUrl("/case/logoutSuccess")
+                .logoutSuccessUrl("/case")
                 .and()
 //	        .rememberMe()
 //	        	// this configuration is for remember me and is not required for the class

@@ -6,7 +6,7 @@
     <div class="marginForFooter container">
         <h2 class="display-4 text-darkblue text-center">New users registration</h2>
         <article id="article-register" class="m-auto col col-xl-7 col-md-10 shadow-lg rounded15px p-5 mt-4">
-            <form method="GET" action="/case/registerSubmit" name="register-form" class="row">
+            <form method="GET" action="/registerSubmit" name="register-form" class="row">
                 <input type="hidden" name="id" value="${formBeanKey.id}">
 
                 <input type="text" class="form-control" name="email" value="${formBeanKey.email}" placeholder="Enter your email in format abc@abc.com">
@@ -63,7 +63,7 @@
         <div class="w-75 m-auto mt-4 fs-5 text-darkblue">
             <p><i class="far fa-circle me-2"></i>Make sure you were given a permission  <span class="text-bold">for accessing Inventory Management System</span>.<br>
                 Check your email for an email from support@ims.com. Your permission's details must be described in the email under topic "IMA Permission".<br>
-            <p><i class="far fa-circle me-2"></i>In order to get a permission, please contact to our <a href="/case/usersupport">user support team</a>.<br>
+            <p><i class="far fa-circle me-2"></i>In order to get a permission, please contact to our <a href="/usersupport">user support team</a>.<br>
             You will need to attach your manager's approval with your request for getting a permission.</p>
             <a class="mt-5 text-muted" href="/case">Go to Main page</a>
         </div>

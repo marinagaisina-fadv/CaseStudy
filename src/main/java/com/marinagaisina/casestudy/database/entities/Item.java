@@ -32,11 +32,11 @@ public class Item {
     @Column(name = "avail_quantity")
     private Integer availQuantity;
 
-    @Column(name = "image_url")
-    private String imageUrl;
-
     @Column(name = "quantity_to_package")
     private Integer quantityToPackage;
+
+    @Column(name = "image_url")
+    private String imageUrl;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

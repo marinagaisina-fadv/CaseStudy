@@ -3,7 +3,7 @@
 <jsp:include page="../include/header.jsp" />
 
 <main class="marginForFooter">
-    <form method="GET" action="/case/admin">
+    <form method="GET" action="/admin">
         <div class="m-auto col col-xl-5 col-md-8 d-flex shadow-lg rounded15px">
             <input type="text" class="form-control" name="search" placeholder="Get list of users by first name or last name LIKE (ignore case)...Type % to see all users">
             <button class="btn btn-dark btn-block" type="submit">Search</button>
@@ -30,7 +30,7 @@
                     <td>${user.email}</td>
                     <td>${user.firstName}</td>
                     <td>${user.lastName}</td>
-                    <td><a class="btn btn-secondary" href="/case/editUser?id=${user.id}">Edit</a></td>
+                    <td><a class="btn btn-secondary" href="/editUser?id=${user.id}">Edit</a></td>
                     <td><a class="btn btn-warning" href="">Delete</a></td>
                 </tr>
             </c:forEach>

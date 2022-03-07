@@ -59,33 +59,36 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         // List<Permission> permissions = userDao.getPermissionsByEmail(username);
         // Collection<? extends GrantedAuthority> springRoles = buildGrantAuthorities(permissions);
         List<UserRole> userRoles = userDao.getUserRoles(user.getId());
+
+
         Collection<? extends GrantedAuthority> springRoles = buildGrantAuthorities(userRoles);
 
 //        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), accountIsEnabled,
 //                accountNonExpired, credentialsNonExpired, accountNonLocked, springRoles);
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), springRoles);
+        return new org.springframework.security.core.userdetails.User(username, user.getPassword(), springRoles);
     }
 
-//	private Collection<? extends GrantedAuthority> buildGrantAuthorities(List<Permission> permissions) {
-//		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-//		for (Permission permission : permissions) {
-//			authorities.add(new SimpleGrantedAuthority(permission.getName()));
-//		}
-//
-//		return authorities;
-//	}
-
-    private Collection<? extends GrantedAuthority> buildGrantAuthorities(List<UserRole> userRoles) {
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+	private Collection<? extends GrantedAuthority> buildGrantAuthorities(List<UserRole> userRoles) {
+		List<GrantedAuthority> authorities = new ArrayList<>();
 
         for (UserRole role : userRoles) {
             authorities.add(new SimpleGrantedAuthority(role.getUserRole().toString()));
         }
 
+		return authorities;
+	}
+
+    /*private Collection<? extends GrantedAuthority> buildGrantAuthorities(List<UserRole> userRoles) {
+        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+
+        for (Permission permission : permissions) {
+			authorities.add(new SimpleGrantedAuthority(permission.getName()));
+		}
+
         // always add the user role
         //authorities.add(new SimpleGrantedAuthority(UserRoleEnum.USER.toString()));
 
         return authorities;
-    }
+    }*/
 
 }

@@ -14,13 +14,13 @@
     <link rel="stylesheet" href="../../../pub/css/style.css">
     <!-- Optional JavaScript; choose one of the two! -->
     <!-- Option 1: Bootstrap Bundle with Popper -->
+    <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>-->
     <script src="https://kit.fontawesome.com/2460d75aa0.js" crossorigin="anonymous"></script>
     <script src="../../../js/main.js"></script>
     <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-    -->
+
     <title>InventoryManagementApplication | Main</title>
 </head>
 <body class="bg-lightblue">
@@ -29,31 +29,38 @@
         <a class="navbar-brand m-0 text-center" style="height: fit-content" href="/case"><img src="../../../pub/img/logo.gif" style="width: 60%" alt="logo.gif"></a>
         <div>
             <h1 class="text-white display-6 m-0">Inventory Management System</h1>
-            <nav class="navbar navbar-expand-sm navbar-dark p-0">
+            <nav class="navbar navbar-expand-md navbar-dark p-0">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/case/packages">Packages</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Services</a>
+                        <ul class="dropdown-menu bg-dark" id="serviceNavDropdown" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item text-white-50" type="button" href="/customers">Customers' service</a></li>
+                            <li><a class="dropdown-item text-white-50" type="button" href="/packages">Packages' service</a></li>
+                            <li><a class="dropdown-item text-white-50" type="button" href="/items">Items' service</a></li>
+                            <li><a class="dropdown-item text-white-50" type="button" href="/pallets">Pallets' service</a></li>
+                            <li><a class="dropdown-item text-white-50" type="button" href="/locations">Locations' service</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/case/usersupport">User support</a>
+                        <a class="nav-link" href="/usersupport">User support</a>
                         <!-- $ {pageContext.request.contextPath}/src/main/webapp/WEB-INF/jsp/casestudy-index/ -->
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/case/register">Registration</a>
+                        <a class="nav-link" href="/register">Registration</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Shipments</a>
+                        <a class="nav-link" href="/profile">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/case/admin">Admin</a>
+                        <a class="nav-link" href="/admin">Admin</a>
                     </li>
-                    <li class="nav-item dropend">
-                        <a class="nav-link dropdown-toggle disabled" type="button" data-bs-toggle="dropdown" aria-expanded="false">Reports</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" type="button" href="#">Most-in-stock items report</a></li>
-                            <li><a class="dropdown-item" type="button" href="#">Out-of-stock items report</a></li>
-                            <li><a class="dropdown-item" type="button" href="#">New unassigned items report</a></li>
-                            <li><a class="dropdown-item" type="button" href="#">Last assigned items report</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Reports</a>
+                        <ul class="dropdown-menu bg-dark" id="reportsNavDropdown">
+                            <li><a class="dropdown-item text-white-50" type="button" href="#">Most-in-stock items report</a></li>
+                            <li><a class="dropdown-item text-white-50" type="button" href="#">Out-of-stock items report</a></li>
+                            <li><a class="dropdown-item text-white-50" type="button" href="#">New unassigned items report</a></li>
+                            <li><a class="dropdown-item text-white-50" type="button" href="#">Last assigned items report</a></li>
                         </ul>
                     </li>
                 </ul>

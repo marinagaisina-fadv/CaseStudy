@@ -6,21 +6,16 @@
     <div class="marginForFooter container text-center">
         <h2 class="display-7 text-darkblue">Welcome, <span class="text-bold">${username}</span>!</h2>
         <p class="fs-5 text-darkblue w-75 m-auto">This inventory tracking web application for a logistics company implements basic CRUD functionality with additional advanced functions.</p>
-        <p class="fs-5 text-darkblue w-75 m-auto text-center">Please <a href="#" onclick="formOpenClose('login-article')">Login</a> or <a href="/case/register">Register</a></p>
+        <p class="fs-5 text-darkblue w-75 m-auto text-center">Please <a href="#" onclick="formOpenClose('login-article')">Login</a> or <a href="/register">Register</a></p>
         <div class="row justify-content-center">
             <article id="login-article" class="d-block col col-lg-5 col-md-7 col-sm-10 shadow-lg rounded15px p-5 mt-3 text-start">
-                <form action="/case/loginSecurityPost" name="login_form" class="row">
+                <form action="/loginSecurityPost" name="login_form" class="row">
                     <input type="text" class="form-control" name="username" placeholder="Enter your username">
 
-                    <input type="password" class="mt-3 form-control" name="pass" placeholder="Enter your password">
+                    <input type="password" class="mt-3 form-control" name="password" placeholder="Enter your password">
                     <button class="mt-3 btn btn-dark btn-lg btn-block" type="submit">Login</button>
-                    <div class="mt-3">
-                        <c:forEach items="${loginBean.errorMessages}" var="message">
-                            <span class="text-secondary"><i class="fas fa-circle me-2"></i>${message}</span><br>
-                        </c:forEach>
-                    </div>
                     <a class="mb-3 mt-3 small text-muted" href="#">Forgot password?</a>
-                    <p class="mb-3">Don't have an account? <a href="/case/register">Register here</a></p>
+                    <p class="mb-3">Don't have an account? <a href="/register">Register here</a></p>
                     <a class="text-right text-muted" onclick="formOpenClose('login-article')" href="#">close</a>
                 </form>
             </article>

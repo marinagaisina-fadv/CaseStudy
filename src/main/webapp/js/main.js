@@ -47,7 +47,7 @@ const clear = () => {
 
 }
 
-const customerHoverHandler = (customer) => {
+const itemHoverHandler = (item) => {
     // let customerHover = document.getElementById(customer);
-    classToggle(customer);
+    classToggle(item);
 }

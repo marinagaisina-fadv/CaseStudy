@@ -8,6 +8,9 @@ import com.marinagaisina.casestudy.database.dao.UserDAO;
 import com.marinagaisina.casestudy.database.entities.Location;
 import com.marinagaisina.casestudy.database.entities.Parcel;
 import com.marinagaisina.casestudy.database.entities.User;
+import com.marinagaisina.casestudy.service.ItemService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -25,8 +28,9 @@ import java.util.List;
 import java.util.Locale;
 
 @Controller
-@RequestMapping(value = "/case")
 public class CaseStudyController {
+
+    public static final Logger LOG = LoggerFactory.getLogger(CaseStudyController.class);
 
     @Autowired
     private UserDAO userDAO;
@@ -40,48 +44,44 @@ public class CaseStudyController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    public static ItemService itemService;
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public ModelAndView showMainWindow(HttpServletRequest request, HttpSession session) throws Exception {
+    @RequestMapping(value = "/case", method = RequestMethod.GET)
+    public ModelAndView showMainWindow(@RequestParam(required = false) String username, @RequestParam(required = false) String password, HttpServletRequest request, HttpSession session) throws Exception {
+        // without using @RequestParam, you'll do this:
         //String usernameURLParam = request.getParameter("username");
         //response.addObject("username", usernameURLParam);
 
-        // put a value in the session
-        String username = (String) session.getAttribute("username");
-        System.out.println("username from session: "+username);
+        // if we are using @RequestParam, then take the URL params from there:
         if (username == null) {
             username = "Guest";
+        } else {
+            System.out.println("/MainPage - adding user to session = " + username);
+            session.setAttribute("username", username);
         }
-        System.out.println("/index - adding user to session = " + username);
-        session.setAttribute("username", username);
+        // put a username value in the session
+        /*String usernameFromSession = (String) session.getAttribute("username");
+        System.out.println("username from session: "+username);*/
 
         ModelAndView response = new ModelAndView();
+        response.addObject("username", username);
+
         response.setViewName("casestudy-index/index");
 
         return response;
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public ModelAndView registerPage(@RequestParam(required = false) Integer id) throws Exception {
+    public ModelAndView registerPage() throws Exception {
 
         ModelAndView response = new ModelAndView();
-        response.setViewName("casestudy-index/register");
-        RegisterFormBean form = new RegisterFormBean();
+        //response.setViewName("casestudy-index/register");
+        //RegisterFormBean form = new RegisterFormBean();
 
-        if (id != null) {
-            User user = userDAO.findById(id);
-            form.setId(user.getId());   //gets data from the hidden input in JSP
-            form.setEmail(user.getEmail());
-            form.setFirstName(user.getFirstName());
-            form.setLastName(user.getLastName());
-            form.setUsername(user.getUsername());
-            form.setPassword(user.getPassword());
-            form.setDefaultLocation(user.getDefaultLocation());
-            response.setViewName("casestudy-index/editUser");
-        } else {
             response.setViewName("casestudy-index/register");
-        }
-        response.addObject("formBeanKey", form);
+
+        //response.addObject("formBeanKey", form);
         return response;
     }
 
@@ -90,7 +90,7 @@ public class CaseStudyController {
         ModelAndView response = new ModelAndView();
         response.addObject("formBeanKey", form);
 
-        System.out.println(form);
+        //System.out.println(form);
 
         if (errors.hasErrors()) {
             for ( FieldError error : errors.getFieldErrors() ) {
@@ -146,15 +146,16 @@ public class CaseStudyController {
     public ModelAndView editUser(@RequestParam Integer id) throws Exception {
 
         ModelAndView response = new ModelAndView();
-        response.setViewName("casestudy-index/editUser");
-        EditUserBean form = new EditUserBean();
         User user = userDAO.findById(id);
+
+        EditUserBean form = new EditUserBean();
         form.setId(user.getId());   //gets data from the hidden input in JSP
         form.setEmail(user.getEmail());
         form.setFirstName(user.getFirstName());
         form.setLastName(user.getLastName());
         form.setUsername(user.getUsername());
         form.setPassword(user.getPassword());
+        form.setConfirmPassword(user.getPassword());
         form.setLocationAddress(user.getDefaultLocation().getAddress());
         response.setViewName("casestudy-index/editUser");
 
@@ -221,7 +222,32 @@ public class CaseStudyController {
         return response;
     }
     @RequestMapping(value = "/packages", method = RequestMethod.GET)
-    public ModelAndView allitems(@RequestParam(required = false) String searchParcelsByCustomerNameLike,
+    public ModelAndView packagesService(@RequestParam(required = false) String searchParcelsByCustomerNameLike,
+                                 @RequestParam(required = false) String searchParcelsByItemNameLike) throws Exception {
+        ModelAndView response = new ModelAndView();
+        if ( !StringUtils.isEmpty(searchParcelsByCustomerNameLike)) {
+            searchParcelsByCustomerNameLike = searchParcelsByCustomerNameLike.toLowerCase(Locale.ROOT);
+            List<Parcel> parcels = null;
+            try {
+                parcels = parcelDAO.findAllParcelsOfCustomerNameLike(searchParcelsByCustomerNameLike);
+            } catch (Exception e) {
+                LOG.warn(String.valueOf(e.getCause()));
+            }
+            response.addObject("parcelListKey", parcels);
+        }
+        if ( !StringUtils.isEmpty(searchParcelsByItemNameLike)) {
+            searchParcelsByItemNameLike = searchParcelsByItemNameLike.toLowerCase(Locale.ROOT);
+            List<Parcel> parcels2 = parcelDAO.findParcelsByItemNameLike(searchParcelsByItemNameLike);
+            response.addObject("parcelsByItemNameListKey", parcels2);
+        }
+        response.addObject("searchParcelsByItemNameLike", searchParcelsByItemNameLike);
+        response.addObject("searchParcelsByCustomerNameLike", searchParcelsByCustomerNameLike);
+        response.setViewName("casestudy-index/packages");
+        return response;
+    }
+
+    @RequestMapping(value = "/items", method = RequestMethod.GET)
+    public ModelAndView itemsService(@RequestParam(required = false) String searchParcelsByCustomerNameLike,
                                  @RequestParam(required = false) String searchParcelsByItemNameLike) throws Exception {
         ModelAndView response = new ModelAndView();
         if ( !StringUtils.isEmpty(searchParcelsByCustomerNameLike)) {
@@ -232,7 +258,19 @@ public class CaseStudyController {
             List<Parcel> parcels2 = parcelDAO.findParcelsByItemNameLike(searchParcelsByItemNameLike);
             response.addObject("parcelsByItemNameListKey", parcels2);
         }
-        response.setViewName("casestudy-index/packages");
+        response.setViewName("casestudy-index/items");
         return response;
     }
+
+    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+    public ModelAndView profile(@RequestParam(defaultValue = "2") Integer id) throws Exception {
+
+        ModelAndView response = new ModelAndView();
+        response.setViewName("casestudy-index/profile");
+        User user = userDAO.findById(id);
+
+        response.addObject("user", user);
+        return response;
+    }
+
 }

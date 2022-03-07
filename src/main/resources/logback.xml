@@ -5,7 +5,7 @@
 <!--    <logger name="org.springframework" level="WARN" />-->
     <logger name="org.springframework.boot.autoconfigure" level="ERROR" />
 <!--    Main package name or can mention a path to a particular package like Controller -->
-    <logger name="com.marinagaisina.casestudy" level="INFO" />
+    <logger name="com.marinagaisina.casestudy" level="WARN" />
 <!--    <logger name="org.apache.http.wire" level="WARN" />-->
 <!--    <logger name="org.apache.http.wire" level="INFO" />-->
 <!--    <logger name="org.mongo" level="WARN" />-->

@@ -5,7 +5,7 @@
 <main>
     <div class="marginForFooter container text-darkblue">
         <h2 class="display-7 text-darkblue m-auto text-center col col-xl-7 col-md-10">
-            <span class="text-bold">${formBeanKey.firstName}</span>, your profile with username ${formBeanKey.username} has been successfully edited!
+            <span class="text-bold">${formBeanKey.firstName}</span>, your profile with username ${formBeanKey.username} has been successfully edited.
         </h2>
         <article id="article-register" class="m-auto col col-xl-5 col-md-7 shadow-lg rounded15px p-5 mt-4">
             <form action="#" class="row">
@@ -27,7 +27,7 @@
                 <input type="text" class="form-control" name="phone" value="${formBeanKey.phone}" readonly id="phone">
                 <a class="mt-3" href="/case">Logout</a>
                 <a class="mt-2" href="/case">Go to Main page</a>
-                <p class="mt-2 text-secondary">If you experience any issues, please contact our <a href="/case/usersupport">user support team.</a></p>
+                <p class="mt-2 text-secondary">If you experience any issues, please contact our <a href="/usersupport">user support team.</a></p>
             </form>
         </article>
     </div>

@@ -46,6 +46,20 @@ footer {
     margin-bottom: 60px;
 }
 
+#reportsNavDropdown,
+#serviceNavDropdown {
+    margin-top: -1px;
+}
+
+#serviceNavDropdown .dropdown-item:hover,
+#serviceNavDropdown .dropdown-item:focus,
+#reportsNavDropdown .dropdown-item:hover,
+#reportsNavDropdown .dropdown-item:focus
+{
+    background: transparent;
+    color: white !important;
+}
+
 @media screen and (max-width: 575px){
     main {
         margin-top: 275px;

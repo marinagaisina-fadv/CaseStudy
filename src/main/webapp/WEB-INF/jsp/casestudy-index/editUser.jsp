@@ -4,9 +4,9 @@
 
 <main>
     <div class="marginForFooter container">
-        <h2 class="display-4 text-darkblue text-center">Edit user's profile</h2>
+        <h2 class="display-4 text-darkblue text-center">Edit "${formBeanKey.username}" profile</h2>
         <article id="article-register" class="m-auto col col-xl-7 col-md-10 shadow-lg rounded15px p-5 mt-4">
-            <form method="GET" action="/case/editUserSubmit" class="row">
+            <form method="GET" action="/editUserSubmit" class="row">
                 <input type="hidden" name="id" value="${formBeanKey.id}">
 
                 <input type="text" class="form-control" name="locationAddress" value="${formBeanKey.locationAddress}" readonly>
