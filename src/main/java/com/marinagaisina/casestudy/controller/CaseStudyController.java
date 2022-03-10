@@ -2,23 +2,26 @@ package com.marinagaisina.casestudy.controller;
 
 import com.marinagaisina.casestudy.beans.EditUserBean;
 import com.marinagaisina.casestudy.beans.RegisterFormBean;
+import com.marinagaisina.casestudy.database.dao.ItemDAO;
 import com.marinagaisina.casestudy.database.dao.LocationDAO;
 import com.marinagaisina.casestudy.database.dao.ParcelDAO;
 import com.marinagaisina.casestudy.database.dao.UserDAO;
+import com.marinagaisina.casestudy.database.entities.Item;
 import com.marinagaisina.casestudy.database.entities.Location;
 import com.marinagaisina.casestudy.database.entities.Parcel;
 import com.marinagaisina.casestudy.database.entities.User;
+import com.marinagaisina.casestudy.practicing.FieldErrorMessage;
 import com.marinagaisina.casestudy.service.ItemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.lang3.StringUtils;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +29,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 @Controller
 public class CaseStudyController {
@@ -37,6 +41,9 @@ public class CaseStudyController {
 
     @Autowired
     private ParcelDAO parcelDAO;
+
+    @Autowired
+    private ItemDAO itemDAO;
 
     @Autowired
     private LocationDAO locationDAO;
@@ -101,6 +108,7 @@ public class CaseStudyController {
                 // My version: by using a Map<String, FieldError> map, and keeping error object in it, I'll have an access to entire error object
                 // and will be able to get anything like error.getDefaultMessage(), error.getRejectedValue()
                 form.getMap().put(error.getField(), error);
+
             }
 
             response.setViewName("casestudy-index/register");
@@ -140,6 +148,18 @@ public class CaseStudyController {
         }
 
         return response;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    List<FieldErrorMessage> exceptionHandler(MethodArgumentNotValidException e) {
+        // New way! by using additional class FieldErrorMessage!
+        // and mapping error to a List <FieldErrorMessage>
+        List<FieldErrorMessage> errorMessages = e.getBindingResult().getFieldErrors()
+                .stream()
+                .map(fieldError -> new FieldErrorMessage(fieldError.getField(), fieldError.getRejectedValue(), fieldError.getDefaultMessage()))
+                .collect(Collectors.toList());
+        return errorMessages;
     }
 
     @RequestMapping(value = "/editUser", method = RequestMethod.GET)
@@ -194,9 +214,6 @@ public class CaseStudyController {
     }
 
 
-
-
-
     @RequestMapping(value = "/usersupport", method = RequestMethod.GET)
     public ModelAndView usersupportPage(HttpServletRequest request, HttpSession session) throws Exception {
         ModelAndView response = new ModelAndView();
@@ -223,21 +240,24 @@ public class CaseStudyController {
     }
     @RequestMapping(value = "/packages", method = RequestMethod.GET)
     public ModelAndView packagesService(@RequestParam(required = false) String searchParcelsByCustomerNameLike,
-                                 @RequestParam(required = false) String searchParcelsByItemNameLike) throws Exception {
+                                        @RequestParam(required = false) String searchParcelsByItemNameLike) throws Exception {
         ModelAndView response = new ModelAndView();
         if ( !StringUtils.isEmpty(searchParcelsByCustomerNameLike)) {
-            searchParcelsByCustomerNameLike = searchParcelsByCustomerNameLike.toLowerCase(Locale.ROOT);
             List<Parcel> parcels = null;
             try {
-                parcels = parcelDAO.findAllParcelsOfCustomerNameLike(searchParcelsByCustomerNameLike);
+                parcels = parcelDAO.findAllParcelsOfCustomerNameLike(searchParcelsByCustomerNameLike.toLowerCase(Locale.ROOT));
             } catch (Exception e) {
-                LOG.warn(String.valueOf(e.getCause()));
+                LOG.error(String.valueOf(e.getCause()));
             }
             response.addObject("parcelListKey", parcels);
         }
         if ( !StringUtils.isEmpty(searchParcelsByItemNameLike)) {
-            searchParcelsByItemNameLike = searchParcelsByItemNameLike.toLowerCase(Locale.ROOT);
-            List<Parcel> parcels2 = parcelDAO.findParcelsByItemNameLike(searchParcelsByItemNameLike);
+            List<Parcel> parcels2 = null;
+            try {
+                parcels2 = parcelDAO.findParcelsByItemNameLike(searchParcelsByItemNameLike.toLowerCase(Locale.ROOT));
+            } catch (Exception e) {
+                LOG.error(String.valueOf(e.getCause()));
+            }
             response.addObject("parcelsByItemNameListKey", parcels2);
         }
         response.addObject("searchParcelsByItemNameLike", searchParcelsByItemNameLike);
@@ -247,20 +267,23 @@ public class CaseStudyController {
     }
 
     @RequestMapping(value = "/items", method = RequestMethod.GET)
-    public ModelAndView itemsService(@RequestParam(required = false) String searchParcelsByCustomerNameLike,
-                                 @RequestParam(required = false) String searchParcelsByItemNameLike) throws Exception {
+    public ModelAndView itemsService(@RequestParam(required = false) String searchItemsByItemName,
+                                     @RequestParam(required = false) Integer id) throws Exception {
         ModelAndView response = new ModelAndView();
-        if ( !StringUtils.isEmpty(searchParcelsByCustomerNameLike)) {
-            List<Parcel> parcels = parcelDAO.findAllParcelsOfCustomerNameLike(searchParcelsByCustomerNameLike);
-            response.addObject("parcelListKey", parcels);
-        }
-        if ( !StringUtils.isEmpty(searchParcelsByItemNameLike)) {
-            List<Parcel> parcels2 = parcelDAO.findParcelsByItemNameLike(searchParcelsByItemNameLike);
-            response.addObject("parcelsByItemNameListKey", parcels2);
+        if ( !StringUtils.isEmpty(searchItemsByItemName)) {
+            List<Item> items = itemDAO.findItemsByNameContainsIgnoreCaseOrderByName(searchItemsByItemName);
+            response.addObject("itemListKey", items);
+            response.addObject("searchItemsByItemName", searchItemsByItemName);
         }
         response.setViewName("casestudy-index/items");
         return response;
     }
+    /*@RequestMapping(value = "/addItemsToPackage", method = RequestMethod.GET)
+    public ModelAndView addItemsToPackage(@RequestParam Integer id) {
+        ModelAndView response = new ModelAndView();
+        response.setViewName("casestudy-index/addItemToPackage");
+        return response;
+    }*/
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public ModelAndView profile(@RequestParam(defaultValue = "2") Integer id) throws Exception {
@@ -272,5 +295,6 @@ public class CaseStudyController {
         response.addObject("user", user);
         return response;
     }
+
 
 }

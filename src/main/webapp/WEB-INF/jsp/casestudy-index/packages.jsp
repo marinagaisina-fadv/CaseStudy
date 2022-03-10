@@ -14,9 +14,8 @@
             <button class="btn btn-dark" type="submit">Search</button>
             <a class="ms-2 btn btn-secondary" onclick="formOpenClose('customers-article')" href="#">Open/close</a>
         </div>
-    </form>
-    <article id="customers-article" class="m-auto col col-xl-10 col-md-12 shadow-lg rounded15px p-2 mt-4">
-        <table class="table table-sm table-hover">
+        <article id="customers-article" class="m-auto col col-xl-10 col-md-12 shadow-lg rounded15px p-2 mt-4">
+            <table class="table table-sm table-hover">
             <thead>
             <tr class="text-center">
                 <th class="col col-1" scope="col">&numero;</th>
@@ -61,7 +60,7 @@
                     <td class="col col-2" data-bs-placement="top" title="The customer's name"><a class="w-100 btn text-start" href="/customerDetails?id=${parcel.customer.id}">${parcel.customer.fullName}</a></td>
                     <td class="col col-1">
                         <c:if test="${parcel.pallet.id == null}">
-                            <a class="btn btn-info bg-gradient" href="/addItemsToPackage?id=${parcel.id}">Add Items</a>
+                            <a class="btn btn-info bg-gradient" href="/items?id=${parcel.id}">Add Items</a>
                         </c:if>
                     </td>
                     <td class="col col-1 text-start">
@@ -93,18 +92,18 @@
             </c:forEach>
             </tbody>
         </table>
-    </article>
+        </article>
 
-    <form class="mt-5" method="GET" action="/packages?searchParcelsByItemNameLike=searchParcelsByItemNameLike&searchParcelsByCustomerNameLike=searchParcelsByCustomerNameLike">
-        <div class="m-auto col col-xl-8 col-md-10 d-flex shadow-lg rounded15px">
+
+        <div class="mt-5 m-auto col col-xl-8 col-md-10 d-flex shadow-lg rounded15px">
             <input type="text" class="form-control" name="searchParcelsByItemNameLike" placeholder="Get list of packages that contain items with name LIKE, ignore Case...Type % to see all items"
                    value="${searchParcelsByItemNameLike}">
             <button class="btn btn-dark" type="submit">Search</button>
             <a class="ms-2 btn btn-secondary" onclick="formOpenClose('items-article')" href="#">Open/close</a>
         </div>
-    </form>
-    <article id="items-article" class="m-auto col col-xl-10 col-md-12 shadow-lg rounded15px p-5 mt-4">
-        <table class="table">
+
+        <article id="items-article" class="m-auto col col-xl-10 col-md-12 shadow-lg rounded15px p-2 mt-4">
+            <table class="table">
             <thead>
             <tr>
                 <th scope="col">Id</th>
@@ -139,7 +138,39 @@
             </c:forEach>
             </tbody>
         </table>
-    </article>
+        </article>
+    </form>
+
 </main>
 
 <jsp:include page="../include/footer.jsp" />
+
+<%-- MODAL WINDOW!!!
+<!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Launch static backdrop modal
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Add Items to Package id=</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="m-auto col col-xl-8 col-md-10 d-flex shadow-lg rounded15px">
+                            <input type="text" class="form-control" name="searchItemsByItemName" placeholder="Get list of items that contain name, ignore case...Type % to see all items"
+                                   value="${searchItemsByItemName}">
+                            <button class="btn btn-dark" type="submit">Search</button>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Understood</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+--%>

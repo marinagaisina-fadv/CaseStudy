@@ -30,7 +30,7 @@
                 <input type="password" class="mt-3 form-control" name="password" value="${formBeanKey.password}" placeholder="Enter your password" aria-describedby="validationPassRegister">
                 <div class="text-danger">
                     <c:if test="${formBeanKey.map.containsKey('password')}">
-                        Please check password and/or confirmed password fields. Check the details below. You&nbspentered:&nbsp"${formBeanKey.map.get('password').getRejectedValue()}"
+                        Please check password and/or confirmed password fields. Check the details below. You&nbspentered:&nbsp"${formBeanKey.map.get("password").getRejectedValue()}"
                     </c:if>
                 </div>
                 <input type="password" class="mt-3 form-control" name="confirmPassword" value="${formBeanKey.confirmPassword}" placeholder="Confirm your password">

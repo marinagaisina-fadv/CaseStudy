@@ -1,6 +1,7 @@
 package com.marinagaisina.casestudy.beans;
 
 import com.marinagaisina.casestudy.database.entities.Location;
+import com.marinagaisina.casestudy.practicing.FieldErrorMessage;
 import com.marinagaisina.casestudy.validation.EmailUnique;
 import com.marinagaisina.casestudy.validation.TwoFieldsAreEqual;
 import com.marinagaisina.casestudy.validation.ValidatePass;

@@ -60,8 +60,25 @@ footer {
     color: white !important;
 }
 
-@media screen and (max-width: 575px){
+.modal-dialog {
+    max-width: 70% !important;
+    margin-top: 87px !important;
+}
+
+@media screen and (max-width: 992px) {
+    .modal-dialog {
+        max-width: 100% !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
     main {
-        margin-top: 275px;
+        margin-top: 175px;
+    }
+}
+
+@media screen and (max-width: 576px){
+    main {
+        margin-top: 375px;
     }
 }
